@@ -1,11 +1,12 @@
 
-public class Activity
+public abstract class Activity
 {
-    private String name;
-    private int duration;
-    private double distance;
-    private int AHR;
-    private String date;
+    protected static enum INTENSITY {VeryLight, Light, Moderate, Vigorous, VeryVigorous};
+    protected String name;
+    protected int duration;
+    protected double distance;
+    protected int AHR;
+    protected String date;
 
     //Constructor
     public Activity(String name, int duration, double distance, int AHR, String date)
@@ -70,11 +71,16 @@ public class Activity
         this.date = date;
     }
 
+    //Methods
+
+    public abstract double countCaloriesBurnt();
+
     //toString
+    @Override
     public String toString()
     {
         return "Name: " + this.name +
-                "\nDuration: " + this.duration + "\nDistance: " +
-                this.distance + "\nAHR: " + this.AHR + "\nDate: " + this.date;
+                "\tDuration: " + this.duration + "\tDistance: " +
+                this.distance + "\tAHR: " + this.AHR + "\tDate: " + this.date + "\n";
     }
 }
