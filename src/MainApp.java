@@ -42,23 +42,45 @@ public class MainApp {
         distance = Double.parseDouble(st.nextToken().trim());
         AHR = Integer.parseInt(st.nextToken().trim());
 
-        return new Running(name, duration, distance, AHR, date);
+        if(name.equalsIgnoreCase("Swimming"))
+        {
+            return new Swimming(name, duration, distance, AHR, date);
+        }
+        else if (name.equalsIgnoreCase("Running"))
+        {
+            return new Running(name, duration, distance, AHR, date);
+        }
+        else
+        {
+            return new Cycling(name, duration, distance, AHR, date);
+        }
     }
 
 
     public static void displayMenu()
     {
+        int menuWidth = 25;
+        for (int i = 0; i < menuWidth; i++) {
+            System.out.print("=");
+        }
+        System.out.println();
         System.out.println("0. Exit");
         System.out.println("1. View all activities");
+        for (int i = 0; i < menuWidth; i++) {
+            System.out.print("=");
+        }
+        System.out.println();
     }
 
     public static void displayTable(ArrayList<Activity> activities)
     {
-        System.out.printf("%-10s %-10s %-20s %-10s %-10s\n", "Type", "Dur", "Dist", "AHR", "Date");
+        System.out.printf("%-10s %-10s %-20s %-10s     %-10s\n", "Type", "Dur", "Dist", "AHR", "Date");
+        System.out.println("=====================================================================");
         for(Activity a : activities)
         {
             System.out.printf("%-10s %-10d %-20.2f %-10d %-10s\n", a.getName(), a.getDuration(), a.getDistance(), a.getAHR(), a.getDate());
         }
+        System.out.println("=====================================================================");
     }
 
     public static void main(String[] args) throws IOException
@@ -66,6 +88,20 @@ public class MainApp {
         ArrayList<Activity> activities = new ArrayList<>();
         readFile("activity_data_10.csv", activities, true);
 
-        displayTable(activities);
+        Scanner keyboard = new Scanner(System.in);
+        int choice = 0;
+        do{
+            displayMenu();
+            choice = keyboard.nextInt();
+            keyboard.nextLine();
+            switch (choice)
+            {
+                case 1:
+                {
+                    displayTable(activities);
+                    break;
+                }
+            }
+        }   while(choice != 0);
     }
 }
