@@ -6,7 +6,7 @@ import java.util.StringTokenizer;
 
 public class MainApp {
     public static void readFile(String filename, ArrayList<Activity> activities,boolean hasHeaders) throws IOException {
-        File input = new File("activity_data_10.csv");
+        File input = new File("activity_data_100.csv");
         Scanner sc = new Scanner(input);
         String line;
         boolean headersRead = false;
@@ -73,8 +73,6 @@ public class MainApp {
         }
         System.out.println();
     }
-
-
 
     public static void typeMenu(ArrayList<Activity> activities) {
         int menuWidth = 25;
@@ -183,7 +181,7 @@ public class MainApp {
         }while (choice != 0) ;
     }
 
-    public static void displayTable(ArrayList<Activity> activities)
+    public static void displayAll(ArrayList<Activity> activities)
     {
         System.out.printf("%-10s %-10s  %-10s %-10s     %-10s  %-10s\n", "Type", "Dur", "Dist", "AHR", "Date","Calories");
         System.out.println("========================================================================");
@@ -198,7 +196,7 @@ public class MainApp {
     public static void main(String[] args) throws IOException
     {
         ArrayList<Activity> activities = new ArrayList<>();
-        readFile("activity_data_10.csv", activities, true);
+        readFile("activity_data_100.csv", activities, true);
 
         Scanner keyboard = new Scanner(System.in);
         int choice = 0;
@@ -210,7 +208,7 @@ public class MainApp {
             {
                 case 1:
                 {
-                    displayTable(activities);
+                    displayAll(activities);
                     break;
                 }
                 case 2:
