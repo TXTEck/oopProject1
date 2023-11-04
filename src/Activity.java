@@ -1,7 +1,7 @@
 
 public abstract class Activity
 {
-    protected static enum INTENSITY {VeryLight, Light, Moderate, Vigorous, VeryVigorous};
+    protected static enum INTENSITY {VeryLight, Light, Moderate, Vigorous, VeryVigorous}
     protected String name;
     protected int duration;
     protected double distance;
@@ -79,7 +79,7 @@ public abstract class Activity
     @Override
     public String toString()
     {
-        return "Name: " + this.name +
+        return  this.name +
                 "\tDuration: " + this.duration + "\tDistance: " +
                 this.distance + "\tAHR: " + this.AHR + "\tDate: " + this.date + "\n";
     }

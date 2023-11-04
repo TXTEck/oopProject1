@@ -40,6 +40,7 @@ public class Cycling extends Activity
     @Override
     public double countCaloriesBurnt()
     {
+        this.getIntensityValue();
         return intensityValue * this.duration;
     }
 

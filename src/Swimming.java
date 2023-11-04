@@ -1,11 +1,12 @@
 public class Swimming extends Activity
 {
-    public double kmph = (this.distance/(this.duration/60.0));
+
     public double intensityValue;
     public Swimming(String name, int duration, double distance, int AHR, String date)
     {
         super(name, duration, distance, AHR, date);
     }
+    public double kmph = (this.distance/(this.duration/60.0));
 
 
     public INTENSITY getIntensityValue()
@@ -40,6 +41,7 @@ public class Swimming extends Activity
     @Override
     public double countCaloriesBurnt()
     {
+        this.getIntensityValue();
         return intensityValue * this.duration;
     }
 
