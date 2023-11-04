@@ -67,11 +67,14 @@ public class MainApp {
         System.out.println("0. Exit");
         System.out.println("1. View all activities");
         System.out.println("2. View all activities by type");
+        System.out.println("3. View average");
         for (int i = 0; i < menuWidth; i++) {
             System.out.print("~");
         }
         System.out.println();
     }
+
+
 
     public static void typeMenu(ArrayList<Activity> activities) {
         int menuWidth = 25;
@@ -115,10 +118,70 @@ public class MainApp {
                         }
                     }
                     break;
+                default:
+                    System.out.println("Invalid choice");
             }
         } while (choice != 0);
     }
 
+    public static void averageMenu(ArrayList<Activity> activities) {
+        int menuWidth = 25;
+        Scanner keyboard = new Scanner(System.in);
+        int choice;
+        int total = 0;
+        double totalCalories = 0, avgCalories = 0;
+        int totalRunning = 0, totalSwimming = 0, totalCycling = 0;
+        double totalRunningDist = 0, totalSwimmingDist = 0, totalCyclingDist = 0;
+        double avgRunning = 0, avgSwimming = 0, avgCycling = 0;
+        do {
+            for (int i = 0; i < menuWidth; i++) {
+                System.out.print("=");
+            }
+            System.out.println();
+            System.out.println("1. Average distance per activity");
+            System.out.println("2. Average Calories Burnt");
+            System.out.println("0. Go Back");
+            for (int i = 0; i < menuWidth; i++) {
+                System.out.print("=");
+            }
+            System.out.println();
+            choice = keyboard.nextInt();
+
+            switch (choice) {
+                case 1:
+                    for (Activity a : activities) {
+                        if (a instanceof Running) {
+                            totalRunning++;
+                            totalRunningDist += a.getDistance();
+                            avgRunning = totalRunningDist / totalRunning;
+                        } else if (a instanceof Swimming) {
+                            totalSwimming++;
+                            totalSwimmingDist += a.getDistance();
+                            avgSwimming = totalSwimmingDist / totalSwimming;
+                        } else if (a instanceof Cycling) {
+                            totalCycling++;
+                            totalCyclingDist += a.getDistance();
+                            avgCycling = totalCyclingDist / totalCycling;
+                        }
+
+                    }
+                    System.out.printf("The average distance for %d running activities is: %.2f Km\n", totalRunning, avgRunning);
+                    System.out.printf("The average distance for %d swimming activities is: %.2f Km\n", totalSwimming, avgSwimming);
+                    System.out.printf("The average distance for %d cycling activities is: %.2f Km\n", totalCycling, avgCycling);
+                    break;
+                case 2:
+                    for (Activity a : activities) {
+                        total++;
+                        totalCalories += a.countCaloriesBurnt();
+                        avgCalories = totalCalories / total;
+                    }
+                    System.out.printf("The average calories burnt for %d activities is: %.2f\n", total, avgCalories);
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+            }
+        }while (choice != 0) ;
+    }
 
     public static void displayTable(ArrayList<Activity> activities)
     {
@@ -154,6 +217,15 @@ public class MainApp {
                 {
                     typeMenu(activities);
                     break;
+                }
+                case 3:
+                {
+                    averageMenu(activities);
+                    break;
+                }
+                default:
+                {
+                    System.out.println("Invalid choice");
                 }
             }
         }   while(choice != 0);
