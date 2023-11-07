@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MainApp {
     public static void readFile(String filename, ArrayList<Activity> activities,boolean hasHeaders) throws IOException {
-        File input = new File("activity_data_100.csv");
+        File input = new File("activity_data_10.csv");
         Scanner sc = new Scanner(input);
         String line;
         boolean headersRead = false;
@@ -58,7 +58,21 @@ public class MainApp {
             return new Cycling(name, duration, distance, AHR, date);
         }
     }
+    public static void findDuplicate(ArrayList<Activity> activities)
+    {
 
+            for(int i = 0; i < activities.size(); i++)
+            {
+                for(int j = i+1; j < activities.size(); j++)
+                {
+                    if(activities.get(i).toString().equalsIgnoreCase(activities.get(j).toString()))
+                    {
+                    activities.remove(j);
+                    }
+
+                }
+            }
+    }
 
     public static void displayMenu()
     {
@@ -71,7 +85,7 @@ public class MainApp {
         System.out.println("1. View all activities");
         System.out.println("2. Search for activities");
         System.out.println("3. View average");
-
+        System.out.println("4. View sorted data");
         for (int i = 0; i < menuWidth; i++) {
             System.out.print("~");
         }
@@ -83,7 +97,7 @@ public class MainApp {
         Scanner keyboard = new Scanner(System.in);
         int menuWidth = 35;
         int choice;
-
+        ArrayList<Activity> activitiesFound = new ArrayList<>();
         do {
             for (int i = 0; i < menuWidth; i++) {
                 System.out.print("=");
@@ -110,9 +124,15 @@ public class MainApp {
                     System.out.println("Enter minimum distance: ");
                     int minDist = keyboard.nextInt();
                     for (Activity a : activities) {
-                        if (a.getDistance() >= minDist) {
-                            System.out.println(a);
+                        if (a.getDistance() >= minDist)
+                        {
+                            activitiesFound.add(a);
                         }
+                    }
+                    distanceCompareASC(activitiesFound);
+                    for (Activity a : activitiesFound)
+                    {
+                        System.out.println(a);
                     }
                     break;
                 case 3:
@@ -124,8 +144,14 @@ public class MainApp {
                     int minDur = keyboard.nextInt();
                     for (Activity a : activities) {
                         if (a.getDuration() >= minDur) {
-                            System.out.println(a);
+                            activitiesFound.add(a);
                         }
+                    }
+                    DurationComparator durationComparator = new DurationComparator(DurationComparator.SortDirection.ASCENDING);
+                    Collections.sort(activitiesFound, durationComparator);
+                    for (Activity a : activitiesFound)
+                    {
+                        System.out.println(a);
                     }
                     break;
                 default:
@@ -404,11 +430,180 @@ public class MainApp {
         System.out.println("========================================================================");
     }
 
+    public static void sortMenu(ArrayList<Activity> activities)
+    {
+        Scanner keyboard = new Scanner(System.in);
+        int choice;
+        int menuWidth = 35;
+        System.out.println();
+        do {
+            for (int i = 0; i < menuWidth; i++) {
+                System.out.print("=");
+            }
+            System.out.println();
+            System.out.println("0. Go Back");
+            System.out.println("1. Sort by Calories Burnt (Descending)");
+            System.out.println("2. Sort by Date");
+            System.out.println("3. Sort by Distance");
+            System.out.println("4. Sort by Duration");
+            System.out.println("5. Sort by Type");
+            for (int i = 0; i < menuWidth; i++) {
+                System.out.print("=");
+            }
+            System.out.println();
+            choice = keyboard.nextInt();
+            switch (choice) {
+                case 0:
+                    break;
+                case 1: {
+                    calorieCompare(activities);
+                    displayAll(activities);
+                    break;
+                }
+                case 2:
+                {
+                    orderMenuDate(activities);
+                    break;
+                }
+                case 3:
+                {
+                    orderMenuDistance(activities);
+                    break;
+                }
+                case 4:
+                {
+                    orderMenuDuration(activities);
+                    break;
+                }
+                case 5:
+                {
+                    nameCompare(activities);
+                    displayAll(activities);
+                    break;
+                }
+            }
+        }while(choice != 0);
+    }
+
+    public static void orderMenuDate(ArrayList<Activity> activities)
+    {
+        Scanner keyboard = new Scanner(System.in);
+        int choice;
+        int menuWidth = 35;
+        do {
+            for (int i = 0; i < menuWidth; i++) {
+                System.out.print("=");
+            }
+            System.out.println();
+            System.out.println("0. Go Back");
+            System.out.println("1. Ascending");
+            System.out.println("2. Descending");
+            for (int i = 0; i < menuWidth; i++) {
+                System.out.print("=");
+            }
+            System.out.println();
+            choice = keyboard.nextInt();
+            switch (choice) {
+                case 0:
+                    break;
+                case 1:
+                {
+                    DateComparator dateComparator = new DateComparator(DateComparator.SortDirection.ASCENDING);
+                    Collections.sort(activities, dateComparator);
+                    displayAll(activities);
+                    break;
+                }
+                case 2:
+                {
+                    DateComparator dateComparator = new DateComparator(DateComparator.SortDirection.DESCENDING);
+                    Collections.sort(activities, dateComparator);
+                    displayAll(activities);
+                    break;
+                }
+            }
+        }while(choice != 0);
+    }
+
+    public static void orderMenuDistance(ArrayList<Activity> activities)
+    {
+        Scanner keyboard = new Scanner(System.in);
+        int choice;
+        int menuWidth = 35;
+        do {
+            for (int i = 0; i < menuWidth; i++) {
+                System.out.print("=");
+            }
+            System.out.println();
+            System.out.println("0. Go Back");
+            System.out.println("1. Ascending");
+            System.out.println("2. Descending");
+            for (int i = 0; i < menuWidth; i++) {
+                System.out.print("=");
+            }
+            System.out.println();
+            choice = keyboard.nextInt();
+            switch (choice) {
+                case 0:
+                    break;
+                case 1:
+                {
+                    distanceCompareASC(activities);
+                    displayAll(activities);
+                    break;
+                }
+                case 2:
+                {
+                    distanceCompareDSC(activities);
+                    displayAll(activities);
+                    break;
+                }
+            }
+        }while(choice != 0);
+    }
+
+    public static void orderMenuDuration(ArrayList<Activity> activities)
+    {
+        Scanner keyboard = new Scanner(System.in);
+        int choice;
+        int menuWidth = 35;
+        do {
+            for (int i = 0; i < menuWidth; i++) {
+                System.out.print("=");
+            }
+            System.out.println();
+            System.out.println("0. Go Back");
+            System.out.println("1. Ascending");
+            System.out.println("2. Descending");
+            for (int i = 0; i < menuWidth; i++) {
+                System.out.print("=");
+            }
+            System.out.println();
+            choice = keyboard.nextInt();
+            switch (choice) {
+                case 0:
+                    break;
+                case 1:
+                {
+                    DurationComparator durationComparator = new DurationComparator(DurationComparator.SortDirection.ASCENDING);
+                    Collections.sort(activities, durationComparator);
+                    displayAll(activities);
+                    break;
+                }
+                case 2:
+                {
+                    DurationComparator durationComparator = new DurationComparator(DurationComparator.SortDirection.DESCENDING);
+                    Collections.sort(activities, durationComparator);
+                    displayAll(activities);
+                    break;
+                }
+            }
+        }while(choice != 0);
+    }
     public static void main(String[] args) throws IOException
     {
         ArrayList<Activity> activities = new ArrayList<>();
-        readFile("activity_data_100.csv", activities, true);
-
+        readFile("activity_data_10.csv", activities, true);
+        findDuplicate(activities);
         Scanner keyboard = new Scanner(System.in);
         int choice = 0;
         do{
@@ -434,16 +629,19 @@ public class MainApp {
                     averageMenu(activities);
                     break;
                 }
+                case 4:
+                {
+                    sortMenu(activities);
+                    break;
+                }
                 default:
                 {
                     System.out.println("Invalid choice");
                 }
             }
         }   while(choice != 0);
-
-
-                }
-public static List<Activity> caloriecompare(List<Activity> activities) {
+    }
+        public static List<Activity> calorieCompare(List<Activity> activities) {
         Collections.sort(activities, (a1, a2) -> {
         if (a1.countCaloriesBurnt() > a2.countCaloriesBurnt()) {
         return -1;
@@ -456,7 +654,7 @@ public static List<Activity> caloriecompare(List<Activity> activities) {
 
         return activities; // Return the sorted list
         }
-public static List<Activity> NameCompare(List<Activity> activities)
+        public static List<Activity> nameCompare(List<Activity> activities)
         {
         Collections.sort(activities, (a1, a2) -> {
         if (a1.getName().compareTo(a2.getName()) > 0) {
@@ -469,7 +667,7 @@ public static List<Activity> NameCompare(List<Activity> activities)
         });
         return activities;
         }
-public static List<Activity> DistanceCompareDSC(List<Activity> activities)
+        public static List<Activity> distanceCompareDSC(List<Activity> activities)
         {
         Collections.sort(activities, (l1, l2) -> {
         if (l1.getDistance() > l2.getDistance()) {
@@ -483,7 +681,7 @@ public static List<Activity> DistanceCompareDSC(List<Activity> activities)
         return activities;
         }
 
-public static List<Activity> DistanceCompareASC(List<Activity> activities)
+        public static List<Activity> distanceCompareASC(List<Activity> activities)
         {
         Collections.sort(activities, (a1, a2) -> {
         if (a1.getDistance() < a2.getDistance()) {
@@ -496,4 +694,7 @@ public static List<Activity> DistanceCompareASC(List<Activity> activities)
         });
         return activities;
         }
+
+
+
 }

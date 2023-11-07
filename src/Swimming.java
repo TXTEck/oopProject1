@@ -48,4 +48,11 @@ public class Swimming extends Activity
         return intensityValue * this.duration;
     }
 
+    @Override
+    public String toString()
+    {
+        return String.format("%-10s Duration: %-5d Distance: %-6.2f AHR: %-3d Date: %s Calories:  %-5.2f%n",
+                this.name, this.duration, this.distance, this.AHR, this.date,this.countCaloriesBurnt());
+    }
+
 }

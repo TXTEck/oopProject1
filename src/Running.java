@@ -57,7 +57,7 @@ public class Running extends Activity
     @Override
     public String toString()
     {
-        return String.format("%-10s Duration: %-5d Distance: %-6.2f AHR: %-3d Date: %s Intensity:  %-5.2f%n",
-                this.name, this.duration, this.distance, this.AHR, this.date,this.getIntensityValue());
+        return String.format("%-10s Duration: %-5d Distance: %-6.2f AHR: %-3d Date: %s Calories:  %-5.2f%n",
+                this.name, this.duration, this.distance, this.AHR, this.date,this.countCaloriesBurnt());
     }
 }

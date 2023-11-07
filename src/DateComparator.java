@@ -1,3 +1,5 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
 
 public class DateComparator implements Comparator<Activity> {
@@ -7,17 +9,20 @@ public class DateComparator implements Comparator<Activity> {
     }
     @Override
     public int compare(Activity a1, Activity a2) {
-        if (direction == SortDirection.ASCENDING) {
-            return a1.getDate().compareTo(a2.getDate());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            if (direction == SortDirection.ASCENDING) {
+                return dateFormat.parse(a1.getDate()).compareTo(dateFormat.parse(a2.getDate()));
+            } else {
+                return dateFormat.parse(a2.getDate()).compareTo(dateFormat.parse(a1.getDate()));
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        else {
-            return a2.getDate().compareTo(a1.getDate());
-        }
-
+        return 0;
     }
+
     enum SortDirection {
         ASCENDING, DESCENDING
     }
 }
-
-
