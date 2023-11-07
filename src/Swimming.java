@@ -9,12 +9,12 @@ public class Swimming extends Activity
     public double kmph = (this.distance/(this.duration/60.0));
 
 
-    public INTENSITY getIntensityValue()
+    public INTENSITY getEnergyExpended()
     {
         if(kmph < 0.5)
         {
             intensityValue = 5;
-            return Activity.INTENSITY.VeryLight;
+            return INTENSITY.VeryLight;
         }
         else if (kmph < 1.25)
         {
@@ -37,11 +37,14 @@ public class Swimming extends Activity
             return INTENSITY.VeryVigorous;
         }
     }
-
+    public double getIntensityValue()
+    {
+        return intensityValue;
+    }
     @Override
     public double countCaloriesBurnt()
     {
-        this.getIntensityValue();
+        this.getEnergyExpended();
         return intensityValue * this.duration;
     }
 

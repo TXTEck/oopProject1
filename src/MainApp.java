@@ -66,16 +66,222 @@ public class MainApp {
         System.out.println();
         System.out.println("0. Exit");
         System.out.println("1. View all activities");
-        System.out.println("2. View all activities by type");
+        System.out.println("2. Search for activities");
         System.out.println("3. View average");
+
         for (int i = 0; i < menuWidth; i++) {
             System.out.print("~");
         }
         System.out.println();
     }
 
+    public static void searchFor(ArrayList<Activity> activities)
+    {
+        Scanner keyboard = new Scanner(System.in);
+        int menuWidth = 35;
+        int choice;
+
+        do {
+            for (int i = 0; i < menuWidth; i++) {
+                System.out.print("=");
+            }
+            System.out.println();
+            System.out.println("1. Activity Type");
+            System.out.println("2. Above a minimum distance");
+            System.out.println("3. Type of energy expended");
+            System.out.println("4. Above a minimum duration");
+            System.out.println("0. Go Back");
+            for (int i = 0; i < menuWidth; i++) {
+                System.out.print("=");
+            }
+            System.out.println();
+            choice = keyboard.nextInt();
+
+            switch (choice) {
+                case 0:
+                    break;
+                case 1:
+                    typeMenu(activities);
+                    break;
+                case 2:
+                    System.out.println("Enter minimum distance: ");
+                    int minDist = keyboard.nextInt();
+                    for (Activity a : activities) {
+                        if (a.getDistance() >= minDist) {
+                            System.out.println(a);
+                        }
+                    }
+                    break;
+                case 3:
+                    energyExpended(activities);
+                    break;
+
+                case 4:
+                    System.out.println("Enter minimum duration: ");
+                    int minDur = keyboard.nextInt();
+                    for (Activity a : activities) {
+                        if (a.getDuration() >= minDur) {
+                            System.out.println(a);
+                        }
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+            }
+        } while (choice != 0);
+    }
+
+    public static void energyExpended(ArrayList<Activity> activities)
+    {
+        int menuWidth = 35;
+        Scanner keyboard = new Scanner(System.in);
+        int choice;
+        boolean activitiesFound = false;
+        do {
+            for (int i = 0; i < menuWidth; i++) {
+                System.out.print("=");
+            }
+            System.out.println();
+            System.out.println("Select Intensity Level:");
+            System.out.println("1. Very Light");
+            System.out.println("2. Light");
+            System.out.println("3. Moderate");
+            System.out.println("4. Vigorous");
+            System.out.println("5. Very Vigorous");
+            System.out.println("0. Go Back");
+            for (int i = 0; i < menuWidth; i++) {
+                System.out.print("=");
+            }
+            System.out.println();
+            choice = keyboard.nextInt();
+
+            switch (choice) {
+                case 0:
+                    break;
+                case 1:
+                    for (Activity a : activities) {
+                        if (a instanceof Swimming && ((Swimming) a).getEnergyExpended() == Swimming.INTENSITY.VeryLight)
+                        {
+                            System.out.println(a);
+                            activitiesFound = true;
+                        }
+                        if (a instanceof Running && ((Running) a).getEnergyExpended() == Running.INTENSITY.VeryLight)
+                        {
+                            System.out.println(a);
+                            activitiesFound = true;
+                        }
+                        if (a instanceof Cycling && ((Cycling) a).getEnergyExpended() == Cycling.INTENSITY.VeryLight)
+                        {
+                            System.out.println(a);
+                            activitiesFound = true;
+                        }
+                    }
+                    if(!activitiesFound)
+                    {
+                        System.out.println("No activities found");
+                    }
+                    break;
+                case 2:
+                    for (Activity a : activities) {
+                        if (a instanceof Swimming && ((Swimming) a).getEnergyExpended() == Swimming.INTENSITY.Light)
+                        {
+                            System.out.println(a);
+                            activitiesFound = true;
+                        }
+                        if (a instanceof Running && ((Running) a).getEnergyExpended() == Running.INTENSITY.Light)
+                        {
+                            System.out.println(a);
+                            activitiesFound = true;
+                        }
+                        if (a instanceof Cycling && ((Cycling) a).getEnergyExpended() == Cycling.INTENSITY.Light)
+                        {
+                            System.out.println(a);
+                            activitiesFound = true;
+                        }
+                        if(!activitiesFound)
+                        {
+                            System.out.println("No activities found");
+                        }
+                    }
+                    break;
+                case 3:
+                    for (Activity a : activities) {
+                        if (a instanceof Swimming && ((Swimming) a).getEnergyExpended() == Swimming.INTENSITY.Moderate)
+                        {
+                            System.out.println(a);
+                            activitiesFound = true;
+                        }
+                        if (a instanceof Running && ((Running) a).getEnergyExpended() == Running.INTENSITY.Moderate)
+                        {
+                            System.out.println(a);
+                            activitiesFound = true;
+                        }
+                        if (a instanceof Cycling && ((Cycling) a).getEnergyExpended() == Cycling.INTENSITY.Moderate)
+                        {
+                            System.out.println(a);
+                            activitiesFound = true;
+                        }
+                    }
+                    if(!activitiesFound)
+                    {
+                        System.out.println("No activities found");
+                    }
+                    break;
+                case 4:
+                    for (Activity a : activities) {
+                        if (a instanceof Swimming && ((Swimming) a).getEnergyExpended() == Swimming.INTENSITY.Vigorous)
+                        {
+                            System.out.println(a);
+                            activitiesFound = true;
+                        }
+                        if (a instanceof Running && ((Running) a).getEnergyExpended() == Running.INTENSITY.Vigorous)
+                        {
+                            System.out.println(a);
+                            activitiesFound = true;
+                        }
+                        if (a instanceof Cycling && ((Cycling) a).getEnergyExpended() == Cycling.INTENSITY.Vigorous)
+                        {
+                            System.out.println(a);
+                            activitiesFound = true;
+                        }
+                    }
+                    if(!activitiesFound)
+                    {
+                        System.out.println("No activities found");
+                    }
+                    break;
+                case 5:
+                    for (Activity a : activities) {
+                        if (a instanceof Swimming && ((Swimming) a).getEnergyExpended() == Swimming.INTENSITY.VeryVigorous)
+                        {
+                            System.out.println(a);
+                            activitiesFound = true;
+                        }
+                        if (a instanceof Running && ((Running) a).getEnergyExpended() == Running.INTENSITY.VeryVigorous)
+                        {
+                            System.out.println(a);
+                            activitiesFound = true;
+                        }
+                        if (a instanceof Cycling && ((Cycling) a).getEnergyExpended() == Cycling.INTENSITY.VeryVigorous)
+                        {
+                            System.out.println(a);
+                            activitiesFound = true;
+                        }
+                    }
+                    if(!activitiesFound)
+                    {
+                        System.out.println("No activities found");
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+            }
+        }while (choice != 0);
+
+    }
+
     public static void typeMenu(ArrayList<Activity> activities) {
-        int menuWidth = 25;
+        int menuWidth = 35;
         Scanner keyboard = new Scanner(System.in);
         int choice;
 
@@ -95,6 +301,8 @@ public class MainApp {
             choice = keyboard.nextInt();
 
             switch (choice) {
+                case 0:
+                    break;
                 case 1:
                     for (Activity a : activities) {
                         if (a instanceof Running) {
@@ -116,14 +324,12 @@ public class MainApp {
                         }
                     }
                     break;
-                default:
-                    System.out.println("Invalid choice");
             }
         } while (choice != 0);
     }
 
     public static void averageMenu(ArrayList<Activity> activities) {
-        int menuWidth = 25;
+        int menuWidth = 35;
         Scanner keyboard = new Scanner(System.in);
         int choice;
         int total = 0;
@@ -146,6 +352,8 @@ public class MainApp {
             choice = keyboard.nextInt();
 
             switch (choice) {
+                case 0:
+                    break;
                 case 1:
                     for (Activity a : activities) {
                         if (a instanceof Running) {
@@ -206,6 +414,8 @@ public class MainApp {
             keyboard.nextLine();
             switch (choice)
             {
+                case 0:
+                    break;
                 case 1:
                 {
                     displayAll(activities);
@@ -213,7 +423,7 @@ public class MainApp {
                 }
                 case 2:
                 {
-                    typeMenu(activities);
+                    searchFor(activities);
                     break;
                 }
                 case 3:
