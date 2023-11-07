@@ -8,12 +8,12 @@ public class Cycling extends Activity
     }
 
 
-    public INTENSITY getIntensityValue()
+    public INTENSITY getEnergyExpended()
     {
         if(kmph < 8)
         {
             intensityValue = 2;
-            return Activity.INTENSITY.VeryLight;
+            return INTENSITY.VeryLight;
         }
         else if (kmph >= 8 && kmph <16)
         {
@@ -36,10 +36,14 @@ public class Cycling extends Activity
             return INTENSITY.VeryVigorous;
         }
     }
-
+    public double getIntensityValue()
+    {
+        return intensityValue;
+    }
     @Override
     public double countCaloriesBurnt()
     {
+        this.getEnergyExpended();
         return intensityValue * this.duration;
     }
 
