@@ -3,6 +3,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.Collections;
+import java.util.List;
+
 
 public class MainApp {
     public static void readFile(String filename, ArrayList<Activity> activities,boolean hasHeaders) throws IOException {
@@ -439,5 +442,58 @@ public class MainApp {
         }   while(choice != 0);
 
 
-    }
+                }
+public static List<Activity> caloriecompare(List<Activity> activities) {
+        Collections.sort(activities, (a1, a2) -> {
+        if (a1.countCaloriesBurnt() > a2.countCaloriesBurnt()) {
+        return -1;
+        } else if (a1.countCaloriesBurnt() < a2.countCaloriesBurnt()) {
+        return 1;
+        } else {
+        return 0;
+        }
+        });
+
+        return activities; // Return the sorted list
+        }
+public static List<Activity> NameCompare(List<Activity> activities)
+        {
+        Collections.sort(activities, (a1, a2) -> {
+        if (a1.getName().compareTo(a2.getName()) > 0) {
+        return -1;
+        } else if (a1.getName().compareTo(a2.getName()) < 0) {
+        return 1;
+        } else {
+        return 0;
+        }
+        });
+        return activities;
+        }
+public static List<Activity> DistanceCompareDSC(List<Activity> activities)
+        {
+        Collections.sort(activities, (l1, l2) -> {
+        if (l1.getDistance() > l2.getDistance()) {
+        return -1;
+        } else if (l1.getDistance() < l2.getDistance()) {
+        return 1;
+        } else {
+        return 0;
+        }
+        });
+        return activities;
+        }
+
+public static List<Activity> DistanceCompareASC(List<Activity> activities)
+        {
+        Collections.sort(activities, (a1, a2) -> {
+        if (a1.getDistance() < a2.getDistance()) {
+        return -1;
+        } else if (a1.getDistance() > a2.getDistance()) {
+        return 1;
+        } else {
+        return 0;
+        }
+        });
+        return activities;
+        }
 }
