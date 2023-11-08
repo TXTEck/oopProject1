@@ -6,10 +6,10 @@ import java.util.StringTokenizer;
 import java.util.Collections;
 import java.util.List;
 
-
+//Group Members Xu Teck Tan, Wiktor Teter
 public class MainApp {
     public static void readFile(String filename, ArrayList<Activity> activities,boolean hasHeaders) throws IOException {
-        File input = new File("activity_data_10.csv");
+        File input = new File("activity_data_1000.csv");
         Scanner sc = new Scanner(input);
         String line;
         boolean headersRead = false;
@@ -68,7 +68,9 @@ public class MainApp {
                     if(activities.get(i).toString().equalsIgnoreCase(activities.get(j).toString()))
                     {
                     activities.remove(j);
+                    j--;
                     }
+
 
                 }
             }
@@ -86,10 +88,74 @@ public class MainApp {
         System.out.println("2. Search for activities");
         System.out.println("3. View average");
         System.out.println("4. View sorted data");
+        System.out.println("5. Add new activity");
         for (int i = 0; i < menuWidth; i++) {
             System.out.print("~");
         }
         System.out.println();
+    }
+
+    public static void addActivity(ArrayList<Activity> activities)
+    {
+        Scanner keyboard = new Scanner(System.in);
+        int menuWidth = 35;
+        int choice;
+        String name;
+        int duration;
+        double distance;
+        int AHR;
+        String date;
+            for (int i = 0; i < menuWidth; i++) {
+                System.out.print("=");
+            }
+            System.out.println();
+        System.out.println("Select Activity Type:");
+        System.out.println("0. Go Back");
+        System.out.println("1. Swimming");
+        System.out.println("2. Running");
+        System.out.println("3. Cycling");
+        for (int i = 0; i < menuWidth; i++)
+        {
+            System.out.print("=");
+        }
+        System.out.println();
+        choice = keyboard.nextInt();
+        keyboard.nextLine();
+        if(choice == 1)
+        {
+            name = "Swimming";
+        }
+        else if(choice == 2)
+        {
+            name = "Running";
+        }
+        else
+        {
+            name = "Cycling";
+        }
+        System.out.println("Enter duration: ");
+        duration = keyboard.nextInt();
+        System.out.println("Enter distance: (Km/h)");
+        distance = keyboard.nextDouble();
+        System.out.println("Enter AHR: ");
+        AHR = keyboard.nextInt();
+        System.out.println("Enter date: (dd/mm/yyyy)");
+        date = keyboard.next();
+        if (name.equalsIgnoreCase("Swimming"))
+        {
+            Swimming newActivity = new Swimming(name, duration, distance, AHR, date);
+            activities.add(newActivity);
+        }
+        else if (name.equalsIgnoreCase("Running"))
+        {
+            Running newActivity = new Running(name, duration, distance, AHR, date);
+            activities.add(newActivity);
+        }
+        else
+        {
+            Cycling newActivity = new Cycling(name, duration, distance, AHR, date);
+            activities.add(newActivity);
+        }
     }
 
     public static void searchFor(ArrayList<Activity> activities)
@@ -309,7 +375,8 @@ public class MainApp {
 
     }
 
-    public static void typeMenu(ArrayList<Activity> activities) {
+    public static void typeMenu(ArrayList<Activity> activities)
+    {
         int menuWidth = 35;
         Scanner keyboard = new Scanner(System.in);
         int choice;
@@ -328,7 +395,6 @@ public class MainApp {
             }
             System.out.println();
             choice = keyboard.nextInt();
-            ArrayList sortedActivities = new ArrayList();
             switch (choice) {
                 case 0:
                     break;
@@ -337,7 +403,6 @@ public class MainApp {
                         if (a instanceof Running) {
                             System.out.println(a);
                         }
-
                     }
                     break;
                 case 2:
@@ -358,7 +423,8 @@ public class MainApp {
         } while (choice != 0);
     }
 
-    public static void averageMenu(ArrayList<Activity> activities) {
+    public static void averageMenu(ArrayList<Activity> activities)
+    {
         int menuWidth = 35;
         Scanner keyboard = new Scanner(System.in);
         int choice;
@@ -603,7 +669,7 @@ public class MainApp {
     public static void main(String[] args) throws IOException
     {
         ArrayList<Activity> activities = new ArrayList<>();
-        readFile("activity_data_10.csv", activities, true);
+        readFile("activity_data_1000.csv", activities, true);
         findDuplicate(activities);
         Scanner keyboard = new Scanner(System.in);
         int choice = 0;
@@ -635,6 +701,11 @@ public class MainApp {
                     sortMenu(activities);
                     break;
                 }
+                case 5:
+                {
+                    addActivity(activities);
+                    break;
+                }
                 default:
                 {
                     System.out.println("Invalid choice");
@@ -642,7 +713,8 @@ public class MainApp {
             }
         }   while(choice != 0);
     }
-    public static List<Activity> calorieCompare(List<Activity> activities) {
+    public static List<Activity> calorieCompare(List<Activity> activities)
+    {
         Collections.sort(activities, (a1, a2) -> {
         if (a1.countCaloriesBurnt() > a2.countCaloriesBurnt()) {
         return -1;
@@ -654,47 +726,54 @@ public class MainApp {
         });
 
         return activities; // Return the sorted list
-        }
-        public static List<Activity> nameCompare(List<Activity> activities)
-        {
+    }
+    public static List<Activity> nameCompare(List<Activity> activities)
+    {
         Collections.sort(activities, (a1, a2) -> {
-        if (a1.getName().compareTo(a2.getName()) > 0) {
-        return -1;
-        } else if (a1.getName().compareTo(a2.getName()) < 0) {
-        return 1;
-        } else {
-        return 0;
+            if (a1.getName().compareTo(a2.getName()) > 0) {
+                return -1;
+            } else if (a1.getName().compareTo(a2.getName()) < 0) {
+                return 1;
+            } else {
+            return 0;
         }
         });
         return activities;
-        }
-        public static List<Activity> distanceCompareDSC(List<Activity> activities)
-        {
+    }
+    public static List<Activity> distanceCompareDSC(List<Activity> activities)
+    {
         Collections.sort(activities, (l1, l2) -> {
-        if (l1.getDistance() > l2.getDistance()) {
-        return -1;
-        } else if (l1.getDistance() < l2.getDistance()) {
-        return 1;
-        } else {
-        return 0;
-        }
+            if (l1.getDistance() > l2.getDistance())
+            {
+                return -1;
+            }
+            else if (l1.getDistance() < l2.getDistance())
+            {
+                return 1;
+            }
+            else
+            {
+            return 0;
+            }
         });
         return activities;
-        }
-        public static List<Activity> distanceCompareASC(List<Activity> activities)
-        {
+    }
+    public static List<Activity> distanceCompareASC(List<Activity> activities)
+    {
         Collections.sort(activities, (a1, a2) -> {
-        if (a1.getDistance() < a2.getDistance()) {
-        return -1;
-        } else if (a1.getDistance() > a2.getDistance()) {
-        return 1;
-        } else {
-        return 0;
-        }
+            if (a1.getDistance() < a2.getDistance())
+            {
+                return -1;
+            }
+            else if (a1.getDistance() > a2.getDistance())
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
         });
         return activities;
-        }
-
-
-
+    }
 }
