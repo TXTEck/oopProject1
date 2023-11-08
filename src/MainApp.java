@@ -328,7 +328,7 @@ public class MainApp {
             }
             System.out.println();
             choice = keyboard.nextInt();
-
+            ArrayList sortedActivities = new ArrayList();
             switch (choice) {
                 case 0:
                     break;
@@ -337,6 +337,7 @@ public class MainApp {
                         if (a instanceof Running) {
                             System.out.println(a);
                         }
+
                     }
                     break;
                 case 2:
@@ -641,7 +642,7 @@ public class MainApp {
             }
         }   while(choice != 0);
     }
-        public static List<Activity> calorieCompare(List<Activity> activities) {
+    public static List<Activity> calorieCompare(List<Activity> activities) {
         Collections.sort(activities, (a1, a2) -> {
         if (a1.countCaloriesBurnt() > a2.countCaloriesBurnt()) {
         return -1;
@@ -680,7 +681,6 @@ public class MainApp {
         });
         return activities;
         }
-
         public static List<Activity> distanceCompareASC(List<Activity> activities)
         {
         Collections.sort(activities, (a1, a2) -> {
